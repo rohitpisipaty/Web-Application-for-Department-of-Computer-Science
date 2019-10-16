@@ -1,0 +1,144 @@
+
+@charset "ISO-8859-1";
+h1 {
+    color: blue;
+    font-family: cursive;
+    
+}
+heading{
+    color:#003300;
+    font-size: 400%;
+    text-shadow: 4px 7px 15px;
+    border:5px; border-style:solid; border-color:#e6e600;
+}
+.bottomright {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 200px;
+    
+}
+.forurl
+{
+    border:3.5px; border-style:dashed; border-color: #992900;
+}
+.forbutton {
+    
+    
+    background-color: gray;
+    color:whitesmoke;
+    padding: 20px 50px;
+    text-align: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+       
+
+        .formHeader{
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-top-width: 0;
+            background: #fbfbfb;
+            font-size: 0;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        .form-item-row:first-child {
+            border-top-width: 1px;
+            -webkit-border-radius: 3px 3px 0 0;
+            -moz-border-radius: 3px 3px 0 0;
+            border-radius: 3px 3px 0 0;
+        }
+
+       
+
+        
+
+        #middle
+        {
+          margin-left:200px;
+          margin-right:auto;
+          padding:50px;
+        }
+
+        table {
+            border: 1px dotted black;
+            width: 90%;
+            border-collapse: collapse;
+        }
+
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            width: 30%
+        }
+
+      
+
+        input[type=email],input[type=date],input[type=url]
+        {
+        width: 70%;
+        }
+
+     
+
+        input[type=number]
+        {
+        width: 50%;
+        }
+
+        #bottom {
+            background-color:#006600;
+            text-align: right;
+            padding: 10px;
+            font-size: 70%;
+            color: #ffffff;
+        }
+
+       
+
+       
+
+       /* textarea,select,datalist
+        {
+            box-sizing: border-box;
+            border: 2px solid green;
+        }*/
+
+        div
+        {
+        padding-bottom:100px;
+        }
+
+        #address
+        {
+        width: 250px;
+        }
+
+        #zip
+        {
+        width: 35%;
+        }
+
+        b
+        {
+            display:none;
+            color:red;
+            font-family: "Arial Black";
+        }
+        
+        em
+        {
+            color:red;
+        }
+
+       
+
+    
+
+

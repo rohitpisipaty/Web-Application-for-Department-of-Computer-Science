@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+   <link rel = "stylesheet" type = "text/css"  />
+      <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <link rel="stylesheet" href="jquery-ui.css" />
+    
+    
+	 <style>
+th{
+color: #8B4513;
+font-family: "Times New Roman", Times, serif;
+font-weight: bold;
+height:1000%;
+text-align: left;
+padding: 8px;
+width: 30%
+}
+table.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+ 
+h3 {
+    text-decoration: underline;
+	color: #808000
+    text-shadow: -2px 2px 4px;
+}</style>
+<h1 align="center">CS DEPARTMENT</h1>
+<h3 align="center">Student Survey</h3>
+
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+  h1 {
+    color: #A0522D;
+    text-shadow: -2px 2px 5px;
+  }
+  h2 {
+    color: #A0522D;
+    text-shadow: -2px 2px 4px;
+  }
+  h3 {
+       color: #A0522D;
+    text-shadow: -2px 2px 4px;
+  }
+  body
+  {
+     background-color: #00FFFF;
+  }
+  img {
+      display: block;
+
+      position: absolute;
+    right: 0px;
+    bottom: 0px;
+      width: 10%;
+  }
+  .button
+{
+  width: 150px;
+  text-align: center;
+  margin:0 auto;
+
+}
+
+
+
+       
+ 
+  </style>
+	
+
+    <title>Department Survey</title>
+</head>
+
+
+<script>
+/* Function to Reset a cookie upon page reload */
+
+
+/* ================================================================================================ */
+
+/*************************************************************************/
+/*                                                                       */
+/* Function to Get time of the day and greet the user                    */
+/*                                                                       */ 
+/*************************************************************************/
+var now = new Date();
+var hour = now.getHours();
+var name;
+if (hour<12)
+{
+  document.writeln("<h6>Good Morning ");
+}
+else
+{
+  hour = hour - 12;
+  if(hour < 6)
+  {
+    document.writeln("<h6>Good Afternoon ");
+  }
+  else
+  {
+    document.writeln("<h6>Good Evening ");
+  }
+}
+if(document.cookie)
+{
+  var myCookie = unescape(document.cookie);
+  var cookieTokens = myCookie.split("=");
+  name = cookieTokens[1];
+}
+else
+{
+  name = window.prompt("Please enter your name","Name");
+  var date = new Date();
+        date.setTime(date.getTime()+(100*24*60*60*1000));
+        expires = "; expires="+date.toGMTString();
+  document.cookie = "name="+escape(name)+';expires='+expires;
+
+  //document.cookie = 'cookie=ok;expires='+now.toGMTString()+';path=/';
+}
+document.writeln(name+", Welcome to Assignment#3</h6>");
+
+document.writeln("<a href='javascript:wrongPerson()'>"+"Click here if you are not "+name+"</a>");
+function wrongPerson()
+{
+  document.cookie= "name=null;"+"expires=Thu,01-Jan-95,00:00:01 GMT";
+  location.reload();
+}
+
+/* ================================================================================================ */
+
+/*************************************************************************/
+/*                                                                       */
+/* Function to Calculate Max and Average of the comma  separated values  */
+/*                                                                       */ 
+/*************************************************************************/
+
+function dataCalculation()
+{
+	
+	var values = document.getElementById("calc1").value;
+	var elements = values.split(",");
+	var len = elements.length;
+	var i,sum=0,max=0,average;
+	var flag=false;
+	var alert_msg="";
+
+	if(len==10)
+		{
+	 	for(i=0;i<len;i++)
+			{
+			if(isNaN(elements[i]))
+				{
+				alert_msg+="Invalid Input ! \nAlphabets, Special Characters and Spaces Not Allowed \nEnter any Number between 1 to 100 \n";
+				flag=true;
+				break;
+				}
+			else if ((elements[i]>100)||(elements[i]<1))
+				{
+                alert_msg+="Entered numbers must be in the range of 1 to 100 \n";
+				flag=true;
+				break;
+				}
+			} 
+		}
+    else if(len>10)
+    {
+        alert_msg+="Only 10 Numbers will be accepted in the Data Field \n";
+        flag=true;
+    }
+    else if(len<10)
+    {
+        alert_msg+=(10-len)
+        alert_msg+=" more Numbers need to be entered in the Data Field \n";
+        flag=true;
+    }
+	
+	if(Boolean(flag))
+	{
+	    alert(alert_msg);
+        return false;
+	}
+	
+ 	for(i=0;i<len;i++)
+		{
+ 		if(parseInt(elements[i])>max)
+ 		{
+ 			max=elements[i];
+		}		
+		sum= sum + parseInt(elements[i]);
+		}
+	
+ 	average=sum/len;
+ 	document.getElementById("avg1").innerHTML=average;
+ 	document.getElementById("max1").innerHTML=max;
+	return sum;
+}
+
+/* ================================================================================================ */
+
+/**************************************************/
+/*                                                */
+/* Function to Validate Different fields in form  */
+/*                                                */ 
+/**************************************************/
+
+function validateForm()
+{
+	var check_status = "True";
+    var error = [];
+    var ElementFocus = [];
+	var name = document.getElementById("name").value;
+	var addr = document.getElementById("address").value;
+	var email = document.getElementById("email").value;
+	var stuId = /^[a-zA-Z0-9.+/=!'*?^#$%&_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,25}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,20}[a-zA-Z0-9])?)*$/
+
+    var alert_msg="";
+
+	// Using JQuery to enforce constraints for checkbox
+	if($('input[name="box"]:checked').length < 2)
+	{
+        error.push("Please Select at least 2 checkboxes \n");
+	}
+	
+	// Using JQuery to enforce constraints for radio button
+	if($('input[name="option"]:checked').length < 1)
+	{
+		error.push("Please Select at least 1 radio button \n");
+	}
+	
+    // Validating the mail ID textbox
+	if(!(stuId.test(email)))
+	{
+		error.push("Format for E-mail field is Invalid\n");
+        $('#email').val("");
+	}
+
+	if(emptyCheck(name))
+    {
+		error.push("Name Field cannot be empty \n");
+    }
+    if(emptyCheck(addr))
+    {
+    	error.push("Address field cannot be empty \n");
+    }
+
+    if(((/^[a-zA-Z- ]*$/.test(name))==false)&&(name!=""))
+    {
+        document.getElementById("name").innerHTML="";
+        error.push("Name Field must contain Alphabets only \n");
+        $('#name').val("");
+    }
+
+    if((/^[a-zA-Z0-9- ]*$/.test(addr))==false)
+    {
+    	error.push("Address Field must contain Alphanumeric characters only \n");
+        $('#address').val("");
+    }
+
+    var errorMessage = "";
+    if (error.length > 0)
+    {
+        check_status = "False";
+        for (var i = 0; i < error.length; i++)
+        {
+            errorMessage = errorMessage + error[i] + "\n";
+        }
+        
+        $("<span class=\"jquery\"></span>").html(errorMessage).dialog({ title: "Error Message",
+				resizable: false,
+				width: 400,								
+				modal: true,
+				buttons: {
+					"Ok": function() 
+					{
+						$( this ).dialog( "close" );
+					}}});
+    }
+    if (check_status == "False")
+    {
+     return false;
+    document.execCommand('Stop')
+    
+    }
+    else if (check_status == "True")
+    {
+ 	   $("#submit").click();
+        return true;
+    return true;
+    }
+}  
+/* ================================================================================================ */
+
+/**************************************************/
+/*                                                */
+/* Function to Check if a Field is NULL or empty  */
+/*                                                */ 
+/**************************************************/
+
+function emptyCheck(value)
+{
+    if (value == null || value == "")
+    {
+        return true;
+    }
+}
+
+
+function fillFields()
+{ console.log("1");
+  var ajaxCall = new XMLHttpRequest();
+  
+  console.log("2");
+  /*xmlrequest.onload = function(){
+    console.log(xmlrequest.responseText);
+  }*/
+ 
+ ajaxCall.onreadystatechange = function() {
+ 
+    if (ajaxCall.status >= 200 && ajaxCall.status < 400) {
+	
+      var file = ajaxCall.responseText;
+     //alert(ourData);
+      console.log("b4 parse" +file);
+      var data = JSON.parse(file);
+      var zipcode = document.getElementById("zipcode").value;
+        if(zipcode == data.zipcodes[0].zip  )
+        {
+          document.getElementById('state').value = data.zipcodes[0].state;
+          document.getElementById('city').value = data.zipcodes[0].city;
+          document.getElementById("zip").innerHTML = " ";
+        }
+        else if(zipcode == data.zipcodes[1].zip  )
+        {
+          document.getElementById('state').value = data.zipcodes[1].state;
+          document.getElementById('city').value = data.zipcodes[1].city;
+          document.getElementById("zip").innerHTML = " ";
+        }
+        else if(zipcode == data.zipcodes[2].zip  )
+        {
+          document.getElementById('state').value = data.zipcodes[2].state;
+          document.getElementById('city').value = data.zipcodes[2].city;
+          document.getElementById("zip").innerHTML = " ";
+        }
+        else if(zipcode == data.zipcodes[3].zip  )
+        {
+          document.getElementById('state').value = data.zipcodes[3].state;
+          document.getElementById('city').value = data.zipcodes[3].city;
+          document.getElementById("zip").innerHTML = " ";
+        }
+        else
+        {
+          document.getElementById("zip").innerHTML = "Please enter a valid zipcode";
+          document.getElementById('zipcode').value = "";
+        }
+      console.log(data.zipcodes[0].zip);
+      console.log("3");
+    } else {
+      console.log("We connected to the server, but it returned an error.");
+    }
+
+}
+   ajaxCall.open('GET', "zip.json",true);
+   ajaxCall.setRequestHeader("Accept","application/json; charset=utf-8");
+     ajaxCall.send(null);
+}
+$(function(){
+
+
+//$("#tabs").tabs();
+$( "img-tooltip" ).tooltip();
+//<!-- $("#tabs-1").load("http://www2.gmu.edu.html");-->
+});
+
+function elementFocus()
+{
+    $('#name').focus();
+}
+
+</script>
+
+<!----------------------------- End of Script-1 ------------------------------------------->	
+
+<body id="body">
+<div id="cookie">
+    <h6 id="greeting"></h6>
+	
+    
+</div>
+<div id="top">
+</div>
+ <div  class ="container" style="width=90%;">
+  <div  class="row">
+    <div class="col-md-12">
+      <form name="testForm" id="myForm" method="post" autocomplete="on" action="FirstServlet" autocomplete="on" align="middle" onsubmit="return validateForm()">
+<table align="middle" border="2" class="table-condensed" width="1300">
+                
+  <tr>
+    <th>Name:</th>
+	<th>E-mail:</th>
+	<th>Street Address:</th>
+	</tr>
+	<tr>
+    <th><input name="name" type="text" id="name" size="30" placeholder="Enter your Name" required autofocus autocomplete="on" /></th>
+   
+    
+    <th><input name="email" type="email" id="email" placeholder="name@domain.com" size="30"  required autocomplete="on"  /></th>
+     
+          <th><input name="streetaddress" type="text" id="address" size="30" placeholder="Enter your street Address" required autocomplete="on" />
+        
+      </th>
+
+  </tr>
+  <tr>
+      <th>City:</th>
+	  <th>State:</th>
+	  <th>ZipCode:</th>
+	  </tr>
+	  <tr>
+        <th>  <input name="city" id="city" type="text" size="30"  placeholder="Enter City" required autocomplete="on"/>
+        
+      </th>
+      
+        <th>  <input name="state" id="state" type="text" size="30" placeholder="Enter State" required autocomplete="on"/>
+      </th>
+      
+          <th><input name="zipcode" type="text" id="zipcode" size="15" pattern="[0-9]{5}" placeholder="Enter Zipcode" required autocomplete="on" onblur= "fillFields()" />
+		  <span id="zip" > </span>
+        </th>
+    </tr>
+    <tr>
+      <th>Telephone Number:</th>
+	  <th>URL:</th>
+	  <th>Date of Survey:</th>
+	  </tr>
+	  <tr>
+<th><input type="tel"  size="30" maxlength="12" name="mobile" value="" placeholder="Ex: 571-674-1234" required autocomplete="on"/></th>
+      
+      
+          
+<th><input type="url"  name="URL"  size="30" maxlength="35" value="" placeholder="Ex : https://mason.gmu.edu/~username" required autocomplete="on"/>
+        
+      </th>
+      
+          <th><input name="dos" type="date"  size="30" autocomplete="on"/>
+          </th></tr>
+
+<tr>
+    <th>
+    
+      <span for="txtList" > High School Graduation Month:</span></th>
+	  <th> High School Graduation Year:</th>
+	  <th>UserId:</th></tr>
+	  <tr>
+	  <th><input type="text" autocomplete="on" id="txtList" placeholder="Select a month:" list="months" name="gradmonth" required/>
+       
+ <datalist id="months">
+          <option value="January">
+            <option value="February">
+              <option value="March">
+                <option value="April">
+                  <option value="May">
+                    <option value="June">
+                      <option value="July">
+                        <option value="August">
+                          <option value="September">
+                            <option value="October">
+                              <option value="November">
+                                <option value="december"></datalist>
+     </th>
+      
+	  <th><input type="text" name="gradyear" placeholder="Enter your graduation year" autocomplete="on" required/>
+      
+    </th>
+    
+          <th><input name="userid" type="text"  placeholder="Enter your UserId" required autocomplete="on"/>
+      </th>  
+    </tr>
+  <tr>
+      <th>MovieId:</th>
+	  <th>Rating:</th>
+	  <th>Timestamp:</th></tr>
+	  <tr>
+          <th> <select name="movie">
+    <option>
+      1
+    </option>
+    <option>
+      2
+    </option>
+    <option >3</option>
+    <option >4</option>
+    <option >5</option>
+  </select></th>
+      
+          <th><input name="rating"  autocomplete="on" type="text" placeholder="Enter the rating"  required/>
+      </th>
+      
+          <th><input name="timestamp" type="time" required  autocomplete="on"/></th>
+    </th></tr>
+    <tr> 
+  <th>
+
+<strong>  What did you like the most in the campus?</strong></th>
+
+
+  <th><strong>How did you come to know about us?</strong></th>
+
+
+  <th><strong>How likely are you going to recommend George Mason?</strong></th>
+  
+</tr>
+<tr>
+<th>
+Students&nbsp;<input name = "box" type = "checkbox"  value="students"/>
+Location&nbsp;<input name = "box" type = "checkbox"  value="location"/>
+Campus&nbsp;<input name = "box" type = "checkbox"  value="campus"/>
+Atmosphere&nbsp;<input name = "box" type = "checkbox"  value="atmosphere"/>
+Dorm Rooms&nbsp;<input name = "box" type = "checkbox"  value="dorms"/>
+Sports&nbsp;<input name = "box" type = "checkbox"  value="sports"/>
+</th>
+
+<th>
+
+Internet&nbsp;<input name = "option" type = "radio"  value="internet" />
+Friends&nbsp;<input name = "option" type = "radio"  value="friends"/>
+Television&nbsp;<input name = "option" type = "radio"  value="television"/>
+Other&nbsp;<input name = "option" type = "radio"  value="other"/>
+</th>
+
+
+  <th>
+
+  <select name="recommend">
+    <option>
+      Very Likely
+    </option>
+    <option>
+      Likely
+    </option>
+    <option >Unlikely</option>
+  </select>
+
+</th>
+</tr>
+<tr>
+  <th>
+<p>
+  <label><strong>Additional Feedback:</strong></label><p></th>
+  <th>Numbers:</th>
+  <th>Student Id:</th>
+  
+  
+  </tr>
+  <tr>
+  <th >
+<p>  
+  <textarea rows="5" cols="30" placeholder="Give your Feedback" name="feedback"></textarea>
+</p>
+<br>
+</th>
+<th>
+        <input name="numbers" id = "calc1" />
+      </th>
+	  <th>
+        <input name="StudentID" id = "sid"/>
+      </th>
+</tr>
+    
+	
+     <td> <input align= "center" type="submit" value="Submit"  onclick=" return validateForm()"/>
+      <button align= "center" type="reset" value="Reset">Reset</button>  </td>
+</table>
+    
+    
+    </form>
+    </div>
+
+
+  </div>
+  
+
+
+</div>
+ 
+<div id="bottom">
+<p>
+    
+</p>
+</div>
+<div id = "img-tooltip">
+  <a href="https://www2.gmu.edu/" ><img src="mason-logo.png" style="position:relative" alt="Mason logo" title="Please visit http://www.gmu.edu for more information." /></a>
+</div>
+<br>
+<br><br><br><br>
+Website Developed by : Rohit Pisipaty (G01084064)
+
+</body>
+</html>
